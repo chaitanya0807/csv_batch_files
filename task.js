@@ -36,13 +36,19 @@ async function importCsvToPostgres() {
         console.log('First row data:', data[0]);
     }
 
+    const columnMapping = {
+        name: 'name ',
+        email: 'email',
+        mobile: 'mobail'
+    };
+
     const BATCH_SIZE = 10;
     for (let i = 0; i < data.length; i += BATCH_SIZE) {
         const batch = data.slice(i, i + BATCH_SIZE);
         const batchPromises = batch.map(row => {
             return client.query(
                 'INSERT INTO chaitanyay (name, email, mobile) VALUES ($1, $2, $3)',
-                [row['name '], row.email, row.mobail]
+                [row[columnMapping.name], row[columnMapping.email], row[columnMapping.mobile]]
             ).catch(err => console.error('Error inserting row:', err));
         });
 
