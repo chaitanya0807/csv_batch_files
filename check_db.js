@@ -12,7 +12,7 @@ async function checkData() {
     await client.connect();
     const res = await client.query('SELECT * FROM chaitanyay');
     console.log('Row count:', res.rowCount);
-    console.log('Rows:', res.rows);
+    console.log('First 5 Rows:', res.rows.slice(0, 5));
     await client.end();
 }
 
